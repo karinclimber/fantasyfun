@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fantasy Roster</title>
+
+<!-- CSS -->
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Graduate" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- JS -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<script src="js/app.js"></script>
+
+</head>
+<body>
+<div class="container" ng-app="sortApp" ng-controller="mainController">
+<div class="jumbotron">
+    <h1>The Fantasy Dream Team</h1>
+</div>
+
+<form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="number" class="form-control" placeholder="Search by Jersey Number" ng-model="searchNumber" restrict-to="[1-99]">         
+        </div>  
+        </div>
+      </form>
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+  <td>
+    Player
+
+  </td>
+  <td>
+
+    Number
+  </td>
+  <td ng-click="sortType = 'Position'; sortReverse = !sortReverse">
+
+    Position
+    <span ng-show="sortType == 'Position' && !sortReverse" class="fa fa-caret-down"></span>
+    <span ng-show="sortType == 'Position' && sortReverse" class="fa fa-caret-up"></span>
+  </td>
+  <td ng-click="sortType = 'Team'; sortReverse = !sortReverse">
+    
+    Team
+    <span ng-show="sortType == 'Team' && !sortReverse" class="fa fa-caret-down"></span>
+    <span ng-show="sortType == 'Team' && sortReverse" class="fa fa-caret-up"></span>
+
+  </td>
+</tr>
+</thead>
+
+<tbody>
+<tr ng-repeat="player in players | orderBy:sortType:sortReverse | filter: {Number:searchNumber}">
+  <td>{{ player.Name }}</td>
+  <td>{{ player.Number }}</td>
+  <td>{{ player.Position }}</td>
+  <td>{{ player.Team }}</td>
+</tr>
+</tbody>
+
+</table>
+
+<footer>
+    <br>
+    <h3>Kari Hermann</h3>
+    <br>
+</footer>
+</div>
+</body>
+</html>
